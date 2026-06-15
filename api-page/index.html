@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dokumentasi API modern — Zyrä API">
+  <meta name="author" content="Princes Zyraa">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Zyrä API">
+  <meta property="og:description" content="Dokumentasi API modern — Zyrä API">
+  <meta property="og:image" content="/src/icon.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="/src/icon.png">
+  <link rel="icon" href="/src/icon.png" type="image/png">
+  <link rel="shortcut icon" href="/src/icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/src/icon.png">
+  <title id="page">Zyrä API</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="dark-mode">
+
+  <!-- LOADING -->
+  <div id="loadingScreen">
+    <div class="loader-inner">
+      <div class="loader-ring"></div>
+      <div class="loader-ring loader-ring-2"></div>
+      <span class="loader-text">INITIALIZING<span class="loading-dots">...</span></span>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="side-nav" id="sideNavigation">
+    <div class="side-nav-top">
+      <div class="side-nav-logo">
+        <div class="logo-icon">
+          <img src="/src/icon.png" alt="Logo" width="28" height="28">
+        </div>
+        <span id="sideNavName" class="logo-text">Zyrä API</span>
+      </div>
+      <button class="nav-collapse-btn" id="navCollapseBtn" aria-label="Toggle nav">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+    </div>
+
+    <nav class="side-nav-links">
+      <a href="#home" class="side-nav-link active">
+        <span class="nav-icon"><i class="fas fa-house"></i></span>
+        <span class="nav-label">Beranda</span>
+      </a>
+      <a href="#apis" class="side-nav-link">
+        <span class="nav-icon"><i class="fas fa-bolt"></i></span>
+        <span class="nav-label">Endpoint</span>
+      </a>
+      <a href="/music" class="side-nav-link">
+        <span class="nav-icon"><i class="fas fa-music"></i></span>
+        <span class="nav-label">Music</span>
+      </a>
+      <a href="https://github.com/zyraa-kageen" target="_blank" rel="noopener" class="side-nav-link">
+        <span class="nav-icon"><i class="fab fa-github"></i></span>
+        <span class="nav-label">GitHub</span>
+        <i class="fas fa-arrow-up-right-from-square nav-ext"></i>
+      </a>
+    </nav>
+
+    <div class="side-divider"></div>
+
+    <div class="side-profile">
+      <div class="profile-avatar">
+        <img src="/src/zyra.jpg" alt="Zyra" width="36" height="36">
+        <span class="profile-online"></span>
+      </div>
+      <div class="profile-meta">
+        <span class="profile-name">Zyraa</span>
+        <span class="profile-role">Developer</span>
+      </div>
+    </div>
+
+    <div class="side-status">
+      <span class="status-pulse"></span>
+      <span class="status-label">Sistem Online</span>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-wrapper" id="mainWrapper">
+
+    <!-- HEADER -->
+    <header class="main-header">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div class="search-wrap">
+        <i class="fas fa-magnifying-glass search-icon"></i>
+        <input type="search" id="searchInput" placeholder="Cari endpoint..." autocomplete="off" spellcheck="false">
+        <button class="clear-search" id="clearSearch"><i class="fas fa-xmark"></i></button>
+      </div>
+
+      <div class="header-right">
+        <button class="icon-btn" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme">
+          <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+        <button class="icon-btn notif-btn" id="notificationBell" aria-label="Notifikasi">
+          <i class="fas fa-bell"></i>
+          <span class="notif-badge" id="notificationBadge"></span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- HERO -->
+      <section id="home" class="hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+
+        <div class="hero-content">
+          <div class="hero-eyebrow">
+            <span class="eyebrow-chip">
+              <span class="chip-dot"></span>
+              REST API · JSON · Free
+            </span>
+          </div>
+
+          <h1 class="hero-title">
+            <span id="name" class="gradient-text">Zyrä API</span>
+            <span id="version" class="version-badge">v1.0</span>
+          </h1>
+
+          <p id="description" class="hero-desc">Dokumentasi API yang simpel, cepat, dan modern.</p>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-num" id="statEndpoints">—</span>
+              <span class="stat-label">Endpoint</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat-item">
+              <span class="stat-num" id="statCategories">—</span>
+              <span class="stat-label">Kategori</span>
+            </div>
+            <div class="stat-sep"></div>
+            <div class="stat-item">
+              <span class="stat-num">Free</span>
+              <span class="stat-label">Akses</span>
+            </div>
+          </div>
+
+          <div id="apiLinks" class="hero-actions">
+            <a href="https://github.com/zyraa-kageen/" target="_blank" rel="noopener" class="btn-primary">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="#apis" class="btn-ghost">
+              Jelajahi Endpoint <i class="fas fa-arrow-down"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="banner-wrap">
+            <img id="dynamicImage" class="hero-banner" src="/src/banner.jpg" alt="Banner" loading="eager">
+            <div class="banner-overlay"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- API SECTION -->
+      <section id="apis" class="api-section">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Endpoint Tersedia</h2>
+            <p class="section-subtitle">Koleksi API — cepat, gratis, siap pakai.</p>
+          </div>
+          <span id="resultCount" class="result-count"></span>
+        </div>
+
+        <div id="apiContent"></div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+      <div class="footer-inner">
+        <span id="wm" class="footer-copy">© 2025 Zyraa. All rights reserved.</span>
+        <nav class="footer-links">
+          <a href="https://whatsapp.com/channel/0029VbB23f15a240CU6QX52L" target="_blank" rel="noopener">
+            <i class="fab fa-whatsapp"></i> Info
+          </a>
+          <a href="https://chat.whatsapp.com/FSucFgnT9dPIt0BTj9IEwR" target="_blank" rel="noopener">
+            <i class="fas fa-envelope"></i> Kontak
+          </a>
+        </nav>
+      </div>
+    </footer>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="api-modal" id="apiModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-inner" id="modalDialog">
+
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <span class="modal-method" id="modalMethodBadge">GET</span>
+          <div>
+            <h3 class="modal-title" id="modalTitle">API Name</h3>
+            <p class="modal-subtitle" id="modalSubtitle">Deskripsi API</p>
+          </div>
+        </div>
+        <button class="modal-close" id="modalClose" aria-label="Tutup">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- Endpoint box -->
+        <div class="info-box">
+          <div class="info-box-label">
+            <i class="fas fa-link"></i> Endpoint
+            <button class="copy-btn" id="copyEndpoint" title="Salin">
+              <i class="far fa-copy"></i>
+            </button>
+          </div>
+          <code id="apiEndpoint" class="endpoint-code"></code>
+        </div>
+
+        <!-- Params -->
+        <div id="apiQueryInputContainer"></div>
+
+        <!-- Loading -->
+        <div id="apiResponseLoading" class="response-loading hidden">
+          <div class="pulse-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <span>Memproses permintaan...</span>
+        </div>
+
+        <!-- Response -->
+        <div id="responseContainer" class="response-box hidden">
+          <div class="info-box-label">
+            <span><i class="fas fa-terminal"></i> Respons</span>
+            <div class="response-label-right">
+              <span class="status-pill" id="responseStatusBadge"></span>
+              <button class="copy-btn" id="copyResponse" title="Salin respons">
+                <i class="far fa-copy"></i>
+              </button>
+            </div>
+          </div>
+          <pre id="apiResponseContent" class="response-content hidden"></pre>
+        </div>
+
+        <!-- Helper -->
+        <div id="helperContainer" class="helper-box hidden">
+          <div class="helper-tabs">
+            <button class="helper-tab active" data-tab="fetch">
+              <i class="fab fa-js"></i> Fetch
+            </button>
+            <button class="helper-tab" data-tab="wa">
+              <i class="fab fa-whatsapp"></i> WhatsApp
+            </button>
+            <button class="helper-tab" data-tab="tg">
+              <i class="fab fa-telegram"></i> Telegram
+            </button>
+            <button class="helper-tab" data-tab="curl">
+              <i class="fas fa-terminal"></i> cURL
+            </button>
+          </div>
+          <div class="helper-content">
+            <div class="helper-panel active" id="helperFetch"></div>
+            <div class="helper-panel" id="helperWa"></div>
+            <div class="helper-panel" id="helperTg"></div>
+            <div class="helper-panel" id="helperCurl"></div>
+          </div>
+          <div class="helper-copy-row">
+            <button class="copy-btn helper-copy-btn" id="copyHelper">
+              <i class="far fa-copy"></i> Salin kode
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <span class="modal-hint"><i class="fas fa-circle-info"></i> Isi parameter lalu kirim</span>
+        <button id="submitQueryBtn" class="btn-send" disabled>
+          <i class="fas fa-paper-plane"></i> Kirim
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script src="/script.js"></script>
+
+  <script>
+    (function () {
+      const animCount = (el, target) => {
+        if (!el || isNaN(target) || target <= 0) return;
+        let n = 0;
+        const step = Math.ceil(target / 30);
+        const id = setInterval(() => {
+          n = Math.min(n + step, target);
+          el.textContent = n;
+          if (n >= target) clearInterval(id);
+        }, 30);
+      };
+      let tries = 0;
+      const poll = setInterval(() => {
+        const cards = document.querySelectorAll('.api-card');
+        const cats = document.querySelectorAll('.category-section');
+        if (cards.length > 0 || tries++ > 40) {
+          clearInterval(poll);
+          animCount(document.getElementById('statEndpoints'), cards.length);
+          animCount(document.getElementById('statCategories'), cats.length);
+        }
+      }, 250);
+    })();
+  </script>
+</body>
+</html>
