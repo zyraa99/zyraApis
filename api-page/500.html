@@ -3,234 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>500 • Internal Server Error</title>
-
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<title>500 · Kesalahan server — Zyrä API</title>
+<link rel="icon" href="/src/icon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 
 <style>
 :root{
-    --bg:#020617;
-    --card:rgba(255,255,255,.05);
-    --border:rgba(255,255,255,.08);
+  --bg:#F7F4EC;
+  --surface:#FAF8F2;
+  --border:rgba(61,57,41,.10);
+  --border-2:rgba(61,57,41,.18);
+  --ink:#3D3929;
+  --ink-2:#6B6553;
+  --ink-3:#9C9483;
+  --accent:#B5524A;
+  --accent-soft:rgba(181,82,74,.13);
 }
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
+*{ margin:0; padding:0; box-sizing:border-box; }
+html,body{ min-height:100vh; }
 body{
-    min-height:100vh;
-    overflow:hidden;
-    background:var(--bg);
-    font-family:Inter,system-ui,sans-serif;
+  background:var(--bg); color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  display:flex; align-items:center; justify-content:center;
+  padding:24px; position:relative; overflow:hidden;
 }
-
-/* Grid */
-.grid-bg{
-    position:absolute;
-    inset:0;
-    background-image:
-        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-    background-size:40px 40px;
+.bg-grid{
+  position:absolute; inset:0; z-index:0;
+  background-image:radial-gradient(circle, var(--border-2) 1px, transparent 1px);
+  background-size:24px 24px;
+  mask-image:radial-gradient(ellipse 60% 50% at 50% 40%, black 0%, transparent 72%);
+  opacity:.7;
 }
-
-/* Stars */
-.stars{
-    position:absolute;
-    inset:0;
-    background-image:
-        radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1px);
-    background-size:70px 70px;
-    opacity:.12;
-    animation:stars 80s linear infinite;
+.card{
+  position:relative; z-index:1;
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:24px; padding:56px 44px;
+  max-width:480px; width:100%; text-align:center;
+  box-shadow:0 12px 32px rgba(61,57,41,.08);
 }
-
-@keyframes stars{
-    from{transform:translateY(0)}
-    to{transform:translateY(-1000px)}
+.code{
+  font-family:'Source Serif 4',serif; font-weight:600;
+  font-size:88px; line-height:1; color:var(--accent);
+  margin-bottom:6px;
 }
-
-/* Orbs */
-.orb{
-    position:absolute;
-    border-radius:9999px;
-    filter:blur(120px);
-    opacity:.45;
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--accent); background:var(--accent-soft);
+  padding:5px 12px; border-radius:99px; margin-bottom:18px;
 }
-
-.orb-red{
-    width:350px;
-    height:350px;
-    background:#ef4444;
-    top:-100px;
-    left:-100px;
-}
-
-.orb-blue{
-    width:320px;
-    height:320px;
-    background:#3b82f6;
-    bottom:-120px;
-    right:-120px;
-}
-
-.orb-purple{
-    width:280px;
-    height:280px;
-    background:#8b5cf6;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-}
-
-/* Card */
-.glass{
-    background:var(--card);
-    backdrop-filter:blur(24px);
-    border:1px solid var(--border);
-    box-shadow:
-        0 0 40px rgba(255,255,255,.03),
-        inset 0 1px 0 rgba(255,255,255,.04);
-}
-
-/* Glow */
-.glow{
-    text-shadow:
-        0 0 15px rgba(239,68,68,.9),
-        0 0 30px rgba(239,68,68,.7),
-        0 0 60px rgba(239,68,68,.5);
-}
-
-/* Floating */
-.floating{
-    animation:floating 4s ease-in-out infinite;
-}
-
-@keyframes floating{
-    0%,100%{
-        transform:translateY(0);
-    }
-    50%{
-        transform:translateY(-12px);
-    }
-}
-
-/* Buttons */
+h1{ font-family:'Source Serif 4',serif; font-size:24px; font-weight:600; margin-bottom:12px; }
+p{ font-size:14px; color:var(--ink-2); line-height:1.6; margin-bottom:28px; }
+.actions{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
 .btn{
-    transition:.25s ease;
+  display:inline-flex; align-items:center; gap:7px;
+  padding:11px 20px; border-radius:11px; font-size:13.5px; font-weight:600;
+  font-family:inherit; cursor:pointer; border:none; transition:transform .15s, opacity .15s, background .15s;
+  text-decoration:none;
 }
-
-.btn:hover{
-    transform:translateY(-2px);
-}
-
-.icon{
-    width:18px;
-    height:18px;
-}
+.btn-primary{ background:var(--accent); color:#fff; }
+.btn-primary:hover{ opacity:.9; transform:translateY(-1px); }
+.btn-ghost{ background:transparent; color:var(--ink); border:1px solid var(--border-2); }
+.btn-ghost:hover{ background:rgba(61,57,41,.04); transform:translateY(-1px); }
 </style>
 </head>
 <body>
 
-<div class="grid-bg"></div>
-<div class="stars"></div>
+<div class="bg-grid"></div>
 
-<div class="orb orb-red"></div>
-<div class="orb orb-blue"></div>
-<div class="orb orb-purple"></div>
-
-<div class="relative z-10 flex items-center justify-center min-h-screen px-6">
-
-    <div class="glass rounded-3xl p-10 md:p-14 max-w-2xl w-full text-center">
-
-        <div class="floating">
-            <h1 class="text-[120px] md:text-[180px] font-black text-red-500 glow leading-none">
-                500
-            </h1>
-        </div>
-
-        <span class="uppercase tracking-[8px] text-red-400 text-sm">
-            Internal Server Error
-        </span>
-
-        <h2 class="text-white text-3xl md:text-4xl font-bold mt-6">
-            Oops! Something Went Wrong
-        </h2>
-
-        <p class="text-gray-400 mt-5 leading-relaxed max-w-lg mx-auto">
-            Server mengalami kesalahan saat memproses permintaan Anda.
-            Silakan coba beberapa saat lagi atau kembali ke halaman sebelumnya.
-        </p>
-
-        <div class="flex flex-wrap justify-center gap-4 mt-10">
-
-            <!-- Back -->
-            <button
-                onclick="history.back()"
-                class="btn flex items-center gap-2 px-6 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white font-semibold">
-
-                <svg class="icon" fill="none" stroke="currentColor"
-                     viewBox="0 0 24 24">
-                    <path stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M15 19l-7-7 7-7"/>
-                </svg>
-
-                Kembali
-            </button>
-
-            <!-- Reload -->
-            <button
-                onclick="location.reload()"
-                class="btn flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-600">
-
-                <svg class="icon" fill="none" stroke="currentColor"
-                     viewBox="0 0 24 24">
-                    <path stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M4 4v6h6M20 20v-6h-6"/>
-                    <path stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M20 9A8 8 0 006.3 5.3L4 10m16 4l-2.3 4.7A8 8 0 014 15"/>
-                </svg>
-
-                Reload
-            </button>
-
-            <!-- Home -->
-            <a href="/"
-               class="btn flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold shadow-lg">
-
-                <svg class="icon"
-                     xmlns="http://www.w3.org/2000/svg"
-                     fill="none"
-                     viewBox="0 0 24 24"
-                     stroke="currentColor">
-
-                    <path stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M3 10.5L12 3l9 7.5M5 9v11h14V9"/>
-                </svg>
-
-                Beranda
-            </a>
-
-        </div>
-
-        <div class="mt-10 text-sm text-gray-500">
-            Error Code • 500
-        </div>
-
-    </div>
-
+<div class="card">
+  <span class="eyebrow">Error 500</span>
+  <div class="code">500</div>
+  <h1>Ada yang salah di server</h1>
+  <p>Permintaan gagal diproses karena kesalahan internal. Bukan salahmu — coba muat ulang, atau kembali beberapa saat lagi.</p>
+  <div class="actions">
+    <button class="btn btn-ghost" onclick="location.reload()">
+      <i class="fas fa-rotate-right"></i> Muat Ulang
+    </button>
+    <a href="/" class="btn btn-primary">
+      <i class="fas fa-house"></i> Ke Beranda
+    </a>
+  </div>
 </div>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 </body>
 </html>

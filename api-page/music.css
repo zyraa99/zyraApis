@@ -1,0 +1,119 @@
+/* ═══════════════════════════════════════
+   MUSIC PAGE — extends styles.css tokens
+═══════════════════════════════════════ */
+
+.music-wrapper {
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  min-height: calc(100vh - var(--header-h));
+  padding: 48px 24px 90px; gap: 22px;
+}
+
+.music-page-title {
+  font-family: 'Source Serif 4', serif;
+  font-size: 24px; font-weight: 600; color: var(--ink);
+  display: flex; align-items: center; gap: 10px;
+  align-self: flex-start; max-width: 700px; width: 100%;
+}
+.music-page-title i { color: var(--accent); font-size: 19px; }
+
+.mp-search-wrap { width: 100%; max-width: 700px; display: flex; gap: 10px; }
+.mp-search-wrap input {
+  flex: 1; background: var(--surface); border: 1px solid var(--border-2);
+  border-radius: var(--radius); padding: 12px 16px; font-size: 14px;
+  color: var(--ink); font-family: inherit; outline: none; transition: border-color 0.18s, box-shadow 0.18s;
+}
+.mp-search-wrap input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.mp-search-wrap input::placeholder { color: var(--ink-3); }
+.mp-search-wrap button {
+  background: var(--accent); color: #fff; border: none; border-radius: var(--radius);
+  padding: 12px 20px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
+  display: flex; align-items: center; gap: 8px; transition: opacity 0.18s; white-space: nowrap;
+}
+.mp-search-wrap button:hover { opacity: 0.9; }
+.mp-search-wrap button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.mp-state { width: 100%; max-width: 700px; }
+.mp-loading {
+  display: none; align-items: center; gap: 10px; color: var(--ink-3); font-size: 13px; padding: 6px 4px;
+}
+.mp-loading.visible { display: flex; }
+.mp-error {
+  display: none; background: var(--red-soft); color: var(--red); border: 1px solid rgba(181,82,74,0.25);
+  border-radius: var(--radius-sm); padding: 10px 14px; font-size: 13px;
+}
+.mp-error.visible { display: block; }
+
+.mp-result-card {
+  width: 100%; max-width: 700px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 16px; display: flex; gap: 14px; align-items: center;
+}
+.mp-result-card.hidden { display: none; }
+.mp-result-thumb { width: 72px; height: 72px; border-radius: 10px; object-fit: cover; background: var(--bg-soft); flex-shrink: 0; }
+.mp-result-info { flex: 1; min-width: 0; }
+.mp-result-title { font-size: 14px; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
+.mp-result-dur { font-size: 12px; color: var(--ink-3); }
+.mp-result-play {
+  background: var(--accent); color: #fff; border: none; border-radius: 50%;
+  width: 42px; height: 42px; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 14px; flex-shrink: 0; transition: opacity 0.18s, transform 0.15s;
+}
+.mp-result-play:hover { opacity: 0.9; transform: scale(1.05); }
+
+.mp-player-card {
+  width: 100%; max-width: 700px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); overflow: hidden;
+}
+.mp-player-card.hidden { display: none; }
+
+.mp-artwork-wrap { position: relative; width: 100%; aspect-ratio: 16/7; background: var(--bg-soft); overflow: hidden; }
+.mp-artwork { width: 100%; height: 100%; object-fit: cover; }
+.mp-artwork-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, var(--surface) 100%); }
+.mp-artwork-title {
+  position: absolute; bottom: 14px; left: 18px; right: 18px;
+  font-family: 'Source Serif 4', serif; font-size: 17px; font-weight: 600; color: #fff;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.mp-controls { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 14px; }
+.mp-seek-wrap { display: flex; flex-direction: column; gap: 6px; }
+.mp-seek-track { position: relative; height: 5px; background: var(--border-2); border-radius: 99px; cursor: pointer; }
+.mp-seek-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0%; background: var(--accent); border-radius: 99px; pointer-events: none; }
+.mp-seek-thumb {
+  position: absolute; top: 50%; left: 0%; transform: translate(-50%, -50%);
+  width: 13px; height: 13px; background: var(--accent); border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--surface); pointer-events: none;
+}
+.mp-time { display: flex; justify-content: space-between; font-size: 11px; color: var(--ink-3); font-family: 'JetBrains Mono', monospace; }
+
+.mp-btn-row { display: flex; align-items: center; justify-content: center; gap: 18px; }
+.mp-btn {
+  background: none; border: none; cursor: pointer; color: var(--ink-2); font-size: 17px;
+  padding: 8px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  transition: color 0.15s, background 0.15s;
+}
+.mp-btn:hover { color: var(--ink); background: var(--bg-soft); }
+.mp-btn-play {
+  width: 50px; height: 50px; border-radius: 50%; background: var(--accent); color: #fff;
+  border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 17px; transition: opacity 0.18s, transform 0.15s;
+}
+.mp-btn-play:hover { opacity: 0.9; transform: scale(1.05); }
+
+.mp-vol-row { display: flex; align-items: center; gap: 10px; color: var(--ink-3); font-size: 13px; }
+.mp-vol-slider {
+  flex: 1; height: 4px; border-radius: 99px; background: var(--border-2);
+  -webkit-appearance: none; appearance: none; outline: none;
+}
+.mp-vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%;
+  background: var(--accent); cursor: pointer;
+}
+.mp-vol-slider::-moz-range-thumb { width: 13px; height: 13px; border-radius: 50%; background: var(--accent); border: none; cursor: pointer; }
+
+.mp-empty {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  color: var(--ink-3); padding: 60px 20px; text-align: center;
+}
+.mp-empty.hidden { display: none; }
+.mp-empty i { font-size: 28px; opacity: 0.5; }
+.mp-empty p { font-size: 13.5px; }

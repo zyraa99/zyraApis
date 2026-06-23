@@ -3,26 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Dokumentasi API modern — Zyrä API">
+  <meta name="description" content="Dokumentasi API — Zyrä API">
   <link rel="icon" href="/src/icon.png" type="image/png">
   <title>Zyrä API</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link rel="stylesheet" href="/styles.css">
 </head>
-<body class="dark-mode">
+<body class="">
 
-  
   <div id="loadingScreen">
     <div class="loader-inner">
-      <div class="loader-ring"></div>
-      <div class="loader-ring loader-ring-2"></div>
+      <div class="loader-mark">Z</div>
       <span class="loader-text">memuat<span class="loading-dots">...</span></span>
     </div>
-</div>
+  </div>
+
   <!-- SIDEBAR -->
   <aside class="side-nav" id="sideNavigation">
     <div class="side-nav-top">
@@ -107,15 +106,12 @@
       <!-- HERO -->
       <section id="home" class="hero">
         <div class="hero-bg-grid"></div>
-        <div class="hero-orb hero-orb-1"></div>
-        <div class="hero-orb hero-orb-2"></div>
-        <div class="hero-orb hero-orb-3"></div>
 
         <div class="hero-content">
           <div class="hero-eyebrow">
             <span class="eyebrow-chip">
               <span class="chip-dot"></span>
-              REST API · JSON · Free
+              REST API · JSON · Gratis
             </span>
           </div>
 
@@ -138,7 +134,7 @@
             </div>
             <div class="stat-sep"></div>
             <div class="stat-item">
-              <span class="stat-num"><i class="fas fa-unlock" style="font-size:18px"></i></span>
+              <span class="stat-num"><i class="fas fa-unlock" style="font-size:16px"></i></span>
               <span class="stat-label"><i class="fas fa-check"></i> Akses Gratis</span>
             </div>
           </div>
@@ -165,7 +161,7 @@
       <section id="apis" class="api-section">
         <div class="section-head">
           <div>
-            <h2 class="section-title">Endpoint Tersedia</h2>
+            <h2 class="section-title">Endpoint tersedia</h2>
             <p class="section-subtitle">Koleksi API — cepat, gratis, siap pakai.</p>
           </div>
           <span id="resultCount" class="result-count"></span>
@@ -214,7 +210,7 @@
         <!-- Endpoint box -->
         <div class="info-box">
           <div class="info-box-label">
-            <i class="fas fa-link"></i> Endpoint
+            <span><i class="fas fa-link"></i> Endpoint</span>
             <button class="copy-btn" id="copyEndpoint" title="Salin">
               <i class="far fa-copy"></i>
             </button>

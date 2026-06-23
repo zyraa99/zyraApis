@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Music Player — Zyrä API">
+  <link rel="icon" href="/src/icon.png" type="image/png">
+  <title>Music Player · Zyrä API</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/music.css">
+</head>
+<body>
+
+  <div id="loadingScreen">
+    <div class="loader-inner">
+      <div class="loader-mark">Z</div>
+      <span class="loader-text">memuat<span class="loading-dots">...</span></span>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="side-nav" id="sideNavigation">
+    <div class="side-nav-top">
+      <div class="side-nav-logo">
+        <div class="logo-icon">
+          <img src="/src/icon.png" alt="Logo" width="28" height="28">
+        </div>
+        <span id="sideNavName" class="logo-text">Zyrä API</span>
+      </div>
+      <button class="nav-collapse-btn" id="navCollapseBtn" aria-label="Toggle nav">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+    </div>
+
+    <nav class="side-nav-links">
+      <a href="/#home" class="side-nav-link">
+        <span class="nav-icon"><i class="fas fa-house"></i></span>
+        <span class="nav-label">Beranda</span>
+      </a>
+      <a href="/#apis" class="side-nav-link">
+        <span class="nav-icon"><i class="fas fa-bolt"></i></span>
+        <span class="nav-label">Endpoint</span>
+      </a>
+      <a href="/music" class="side-nav-link active">
+        <span class="nav-icon"><i class="fas fa-music"></i></span>
+        <span class="nav-label">Music</span>
+      </a>
+      <a href="https://github.com/zyraa-kageen" target="_blank" rel="noopener" class="side-nav-link">
+        <span class="nav-icon"><i class="fab fa-github"></i></span>
+        <span class="nav-label">GitHub</span>
+        <i class="fas fa-arrow-up-right-from-square nav-ext"></i>
+      </a>
+    </nav>
+
+    <div class="side-divider"></div>
+
+    <div class="side-profile">
+      <div class="profile-avatar">
+        <img src="/src/zyra.jpg" alt="Zyra" width="36" height="36">
+        <span class="profile-online"></span>
+      </div>
+      <div class="profile-meta">
+        <span class="profile-name">Zyraa</span>
+        <span class="profile-role">Developer</span>
+      </div>
+    </div>
+
+    <div class="side-status">
+      <span class="status-pulse"></span>
+      <span class="status-label">Sistem Online</span>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-wrapper" id="mainWrapper">
+
+    <header class="main-header">
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div style="flex:1"></div>
+      <div class="header-right">
+        <button class="icon-btn" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme">
+          <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <div class="music-wrapper">
+
+        <div class="music-page-title">
+          <i class="fas fa-headphones"></i> Music Player
+        </div>
+
+        <!-- SEARCH -->
+        <div class="mp-search-wrap">
+          <input type="text" id="mpSearchInput" placeholder="Cari lagu atau paste YouTube URL..." autocomplete="off" spellcheck="false">
+          <button id="mpSearchBtn"><i class="fas fa-search"></i> Cari</button>
+        </div>
+
+        <!-- LOADING -->
+        <div class="mp-state mp-loading" id="mpLoading">
+          <div class="pulse-dots"><span></span><span></span><span></span></div>
+          <span>Mencari lagu...</span>
+        </div>
+
+        <!-- ERROR -->
+        <div class="mp-state mp-error" id="mpError"></div>
+
+        <!-- RESULT CARD -->
+        <div class="mp-result-card hidden" id="mpResultCard">
+          <img class="mp-result-thumb" id="mpResultThumb" src="" alt="">
+          <div class="mp-result-info">
+            <div class="mp-result-title" id="mpResultTitle"></div>
+            <div class="mp-result-dur" id="mpResultDur"></div>
+          </div>
+          <button class="mp-result-play" id="mpPlayResult" title="Putar">
+            <i class="fas fa-play"></i>
+          </button>
+        </div>
+
+        <!-- PLAYER CARD -->
+        <div class="mp-player-card hidden" id="mpPlayerCard">
+          <div class="mp-artwork-wrap">
+            <img class="mp-artwork" id="mpArtwork" src="" alt="">
+            <div class="mp-artwork-overlay"></div>
+            <div class="mp-artwork-title" id="mpArtworkTitle"></div>
+          </div>
+
+          <div class="mp-controls">
+            <!-- Seek -->
+            <div class="mp-seek-wrap">
+              <div class="mp-seek-track" id="mpSeekTrack">
+                <div class="mp-seek-fill" id="mpSeekFill"></div>
+                <div class="mp-seek-thumb" id="mpSeekThumb"></div>
+              </div>
+              <div class="mp-time">
+                <span id="mpCurrent">0:00</span>
+                <span id="mpTotal">0:00</span>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="mp-btn-row">
+              <button class="mp-btn" id="mpSkipBack" title="-10 detik">
+                <i class="fas fa-rotate-left"></i>
+              </button>
+              <button class="mp-btn-play" id="mpPlayPause">
+                <i class="fas fa-play" id="mpPlayIcon"></i>
+              </button>
+              <button class="mp-btn" id="mpSkipFwd" title="+10 detik">
+                <i class="fas fa-rotate-right"></i>
+              </button>
+            </div>
+
+            <!-- Volume -->
+            <div class="mp-vol-row">
+              <i class="fas fa-volume-down"></i>
+              <input type="range" class="mp-vol-slider" id="mpVolSlider" min="0" max="100" value="80">
+              <i class="fas fa-volume-up"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div class="mp-empty" id="mpEmpty">
+          <i class="fas fa-music"></i>
+          <p>Cari lagu di atas untuk mulai memutar</p>
+        </div>
+
+      </div>
+    </main>
+
+    <footer class="main-footer">
+      <div class="footer-inner">
+        <span id="wm" class="footer-copy"></span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const $ = id => document.getElementById(id);
+
+    // ── TOAST ──
+    const showToast = (msg, type = 'info') => {
+      const wrap = $('toastWrap');
+      if (!wrap) return;
+      const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', info: 'fa-circle-info' };
+      const colors = { success: 'var(--green)', error: 'var(--red)', info: 'var(--cyan)' };
+      const titles = { success: 'Berhasil', error: 'Error', info: 'Info' };
+      const el = document.createElement('div');
+      el.className = `toast-item toast-${type}`;
+      el.innerHTML = `<i class="toast-icon fas ${icons[type]||'fa-circle-info'}" style="color:${colors[type]||'var(--cyan)'}"></i><div class="toast-body"><span class="toast-title">${titles[type]||'Info'}</span><span class="toast-msg">${msg}</span></div>`;
+      wrap.prepend(el);
+      setTimeout(() => { el.classList.add('fade-out'); setTimeout(() => el.remove(), 350); }, 3500);
+    };
+
+    // ── THEME ──
+    const applyTheme = dark => {
+      document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      const icon = $('themeIcon');
+      if (icon) icon.className = dark ? 'fas fa-sun' : 'fas fa-moon';
+    };
+    const saved = localStorage.getItem('theme');
+    applyTheme(saved === 'dark');
+    $('themeToggleBtn')?.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      applyTheme(!isDark);
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+      showToast(`Mode ${isDark ? 'terang' : 'gelap'} aktif`, 'success');
+    });
+
+    // ── SIDENAV ──
+    const sideNav = document.querySelector('.side-nav');
+    const mainWrapper = $('mainWrapper');
+    const collapsed = localStorage.getItem('navCollapsed') === 'true';
+    if (collapsed) { sideNav?.classList.add('collapsed'); mainWrapper?.classList.add('nav-collapsed'); }
+    $('navCollapseBtn')?.addEventListener('click', () => {
+      sideNav?.classList.toggle('collapsed');
+      mainWrapper?.classList.toggle('nav-collapsed');
+      localStorage.setItem('navCollapsed', sideNav?.classList.contains('collapsed'));
+    });
+    $('menuToggle')?.addEventListener('click', () => sideNav?.classList.toggle('active'));
+    document.addEventListener('click', e => {
+      if (window.innerWidth >= 992) return;
+      if (!sideNav?.contains(e.target) && !$('menuToggle')?.contains(e.target)) sideNav?.classList.remove('active');
+    });
+
+    // ── LOADING SCREEN ──
+    const loadingScreen = $('loadingScreen');
+    const dots = loadingScreen?.querySelector('.loading-dots');
+    if (dots) {
+      const id = setInterval(() => { dots.textContent = dots.textContent.length >= 3 ? '.' : dots.textContent + '.'; }, 450);
+      setTimeout(() => clearInterval(id), 3000);
+    }
+    setTimeout(() => {
+      loadingScreen?.classList.add('fade-out');
+      setTimeout(() => { if (loadingScreen) loadingScreen.style.display = 'none'; document.body.classList.remove('no-scroll'); }, 500);
+    }, 600);
+
+    // ── SETTINGS (untuk nama & footer) ──
+    try {
+      const r = await fetch('/src/settings.json');
+      if (r.ok) {
+        const s = await r.json();
+        const wm = $('wm');
+        const snName = $('sideNavName');
+        if (wm) wm.textContent = `© ${new Date().getFullYear()} ${s.apiSettings?.creator || 'zyraa'}. All rights reserved.`;
+        if (snName) snName.textContent = s.name || 'Zyrä API';
+      }
+    } catch {}
+
+    // ── MUSIC PLAYER ──
+    const audio = new Audio();
+    audio.volume = 0.8;
+    let lastResult = null;
+    let isSeeking = false;
+
+    const fmtTime = s => {
+      if (!s || isNaN(s)) return '0:00';
+      return `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, '0')}`;
+    };
+
+    const setPlayIcon = playing => {
+      const icon = $('mpPlayIcon');
+      if (icon) icon.className = playing ? 'fas fa-pause' : 'fas fa-play';
+    };
+
+    const showPlayer = () => {
+      $('mpEmpty')?.classList.add('hidden');
+      $('mpPlayerCard')?.classList.remove('hidden');
+    };
+
+    const loadTrack = data => {
+      audio.src = data.mp3;
+      audio.load();
+      const artwork = $('mpArtwork');
+      const artTitle = $('mpArtworkTitle');
+      if (artwork) { artwork.src = data.thumbnail || ''; }
+      if (artTitle) artTitle.textContent = data.title;
+      $('mpTotal').textContent = data.duration || '0:00';
+      $('mpCurrent').textContent = '0:00';
+      $('mpSeekFill').style.width = '0%';
+      $('mpSeekThumb').style.left = '0%';
+      $('mpResultCard')?.classList.add('hidden');
+      showPlayer();
+      audio.play().then(() => setPlayIcon(true)).catch(() => {
+        setPlayIcon(false);
+        showToast('Gagal memutar audio.', 'error');
+      });
+    };
+
+    const togglePlay = () => {
+      if (!audio.src) return;
+      if (audio.paused) { audio.play(); setPlayIcon(true); }
+      else { audio.pause(); setPlayIcon(false); }
+    };
+
+    $('mpPlayPause')?.addEventListener('click', togglePlay);
+
+    audio.addEventListener('timeupdate', () => {
+      if (!audio.duration || isSeeking) return;
+      const pct = (audio.currentTime / audio.duration) * 100;
+      const fill = $('mpSeekFill');
+      const thumb = $('mpSeekThumb');
+      const cur = $('mpCurrent');
+      if (fill) fill.style.width = `${pct}%`;
+      if (thumb) thumb.style.left = `${pct}%`;
+      if (cur) cur.textContent = fmtTime(audio.currentTime);
+      const tot = $('mpTotal');
+      if (tot && audio.duration) tot.textContent = fmtTime(audio.duration);
+    });
+
+    audio.addEventListener('ended', () => setPlayIcon(false));
+
+    const seekTo = e => {
+      const track = $('mpSeekTrack');
+      if (!audio.duration || !track) return;
+      const rect = track.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      audio.currentTime = pct * audio.duration;
+      const fill = $('mpSeekFill');
+      const thumb = $('mpSeekThumb');
+      if (fill) fill.style.width = `${pct * 100}%`;
+      if (thumb) thumb.style.left = `${pct * 100}%`;
+    };
+
+    const track = $('mpSeekTrack');
+    track?.addEventListener('click', seekTo);
+    track?.addEventListener('mousedown', e => {
+      isSeeking = true; seekTo(e);
+      const up = () => { isSeeking = false; window.removeEventListener('mouseup', up); };
+      window.addEventListener('mouseup', up);
+    });
+
+    $('mpVolSlider')?.addEventListener('input', e => { audio.volume = e.target.value / 100; });
+    $('mpSkipBack')?.addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime - 10); });
+    $('mpSkipFwd')?.addEventListener('click', () => { audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + 10); });
+
+    // ── SEARCH ──
+    const doSearch = async () => {
+      const q = $('mpSearchInput')?.value.trim();
+      if (!q) return;
+
+      const loading = $('mpLoading');
+      const error = $('mpError');
+      const resultCard = $('mpResultCard');
+      const searchBtn = $('mpSearchBtn');
+
+      resultCard?.classList.add('hidden');
+      if (error) { error.textContent = ''; error.classList.remove('visible'); }
+      if (loading) loading.classList.add('visible');
+      if (searchBtn) searchBtn.disabled = true;
+
+      try {
+        const r = await fetch(`https://api-varhad.my.id/search/ytplay?q=${encodeURIComponent(q)}`);
+        const json = await r.json();
+        if (!json.status || !json.result?.mp3) throw new Error(json.message || 'Lagu tidak ditemukan');
+        lastResult = json.result;
+
+        const thumb = $('mpResultThumb');
+        const title = $('mpResultTitle');
+        const dur = $('mpResultDur');
+        if (thumb) thumb.src = lastResult.thumbnail || '';
+        if (title) title.textContent = lastResult.title;
+        if (dur) dur.textContent = lastResult.duration || '';
+        resultCard?.classList.remove('hidden');
+        showToast('Lagu ditemukan!', 'success');
+      } catch (err) {
+        if (error) { error.textContent = err.message; error.classList.add('visible'); }
+        showToast(err.message, 'error');
+      } finally {
+        if (loading) loading.classList.remove('visible');
+        if (searchBtn) searchBtn.disabled = false;
+      }
+    };
+
+    $('mpSearchBtn')?.addEventListener('click', doSearch);
+    $('mpSearchInput')?.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+    $('mpPlayResult')?.addEventListener('click', () => { if (lastResult) loadTrack(lastResult); });
+  });
+  </script>
+</body>
+</html>
