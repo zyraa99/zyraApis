@@ -163,6 +163,22 @@
           "params": {
             "url": "URL gambar yang ingin dihapus backgroundnya"
           }
+        },
+        {
+  "name": "Videy Upload",
+  "desc": "Upload video langsung ke Videy, return link & ID",
+  "path": "/tools/videy?file=",
+  "method": "POST",
+  "status": "ready",
+  "params": {
+    "file": "Pilih file video (mp4/mov/webm)"
+  },
+  "paramTypes": {
+    "file": {
+      "type": "file",
+      "accept": "video/*"
+    }
+  }
         }
       ]
     },
