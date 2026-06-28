@@ -162,12 +162,12 @@
           "method": "POST",
           "status": "ready",
           "params": {
-    "file": "Pilih file video (mp4/mov/webm)"
+    "file": "Pilih file"
   },
   "paramTypes": {
     "file": {
       "type": "file",
-      "accept": "video/*"
+      "accept": "image/*"
     }
   }
         },
