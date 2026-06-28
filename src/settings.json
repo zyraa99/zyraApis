@@ -158,7 +158,7 @@
         {
           "name": "Remove Background",
           "desc": "Hapus background gambar otomatis via Pixelcut",
-          "path": "/tools/removebg?file=",
+          "path": "/tools/removebg?url=",
           "method": "POST",
           "status": "ready",
           "params": {
@@ -174,7 +174,7 @@
         {
   "name": "Videy Upload",
   "desc": "Upload video langsung ke Videy, return link & ID",
-  "path": "/tools/videy?file=",
+  "path": "/tools/videy?url=",
   "method": "POST",
   "status": "ready",
   "params": {
