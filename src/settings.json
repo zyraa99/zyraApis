@@ -158,11 +158,18 @@
         {
           "name": "Remove Background",
           "desc": "Hapus background gambar otomatis via Pixelcut",
-          "path": "/tools/removebg?url=",
+          "path": "/tools/removebg?file=",
+          "method": "POST",
           "status": "ready",
           "params": {
-            "url": "URL gambar yang ingin dihapus backgroundnya"
-          }
+    "file": "Pilih file video (mp4/mov/webm)"
+  },
+  "paramTypes": {
+    "file": {
+      "type": "file",
+      "accept": "video/*"
+    }
+  }
         },
         {
   "name": "Videy Upload",
